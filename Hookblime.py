@@ -1,5 +1,6 @@
 import sublime_plugin
 import subprocess
+import commands
 
 
 class Hookblime(sublime_plugin.EventListener):
@@ -27,7 +28,7 @@ class Hookblime(sublime_plugin.EventListener):
             file_name = view.file_name() or ""
             cmd = hook["cmd"]
             if hook.get("replace_filename", False):
-                cmd = cmd.replace("%(file_name)", file_name)
+                cmd = cmd.replace("%(file_name)", commands.mkarg(file_name))
             subprocess.call(cmd, shell=True)
 
     def on_new(self, view):
