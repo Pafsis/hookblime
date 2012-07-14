@@ -13,7 +13,7 @@ These are the currently supported events:
 * on_load: Executed when an existing file is opened.
 * on_close: Executed when a tab is closed.
 * on_pre_save: Executed before a file is saved.
-* on_pre_save: Executed after a file is saved.
+* on_post_save: Executed after a file is saved.
 
 ## Configuration
 
