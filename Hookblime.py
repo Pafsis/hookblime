@@ -19,15 +19,16 @@ class Hookblime(sublime_plugin.EventListener):
 
     def _call_hook(self, view, hook_name):
         """Calls the corresponding hook based on the view's scope and the
-        hook_name. If the hook has 'append_filename' set to true, the view's
-        path is passed as the hook last argument."""
+        hook_name. If the hook has 'replace_filename' set to true, the string
+        "%(file_name)" would be replace in the command with the current view's
+        file path."""
         hook = self._get_hook(view, hook_name)
         if hook:
             file_name = view.file_name() or ""
-            call_args = hook["cmd"].split()
-            if hook.get("append_filename", False):
-                call_args.append(file_name)
-            subprocess.call(call_args, shell=True)
+            cmd = hook["cmd"]
+            if hook.get("replace_filename", False):
+                cmd = cmd.replace("%(file_name)", file_name)
+            subprocess.call(cmd, shell=True)
 
     def on_new(self, view):
         self._call_hook(view, "on_new")

@@ -25,8 +25,8 @@ All configuration must be set in an entry called "hookblime", containing a dict
 for each global hook and scope. Each scope must contain its desired hooks.
 
 Each hook dict must have a "cmd" string value with the script to execute, and
-can have an optional boolean entry called "append_filename" which indicates if
-the current file's path should be appended to the script's parameters or not.
+can have an optional boolean entry called "replace_filename" which if true,
+makes the plugin replace the string "%(file_name)" with the current file's path.
 Note that on_new and on_close hooks can be triggered by non-saved files, in
 which cases an empty path will appended.
 
@@ -37,8 +37,8 @@ Sample configuration:
     "hookblime" : {
         "source.python" : {
             "on_post_save" : {
-                "cmd": "python_saved",
-                "append_filename": true
+                "cmd": "python_saved %(file_name)",
+                "replace_filename": true
             }
         },
         "on_new" : {
